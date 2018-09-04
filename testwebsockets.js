@@ -18,10 +18,10 @@ ws.on('close', function close() {
 ws.on('message', function incoming(data) {
   const msg = JSON.parse(data);
   if (!msg.hasOwnProperty("type") || !msg.hasOwnProperty("uri")) {
-      console.log("Invalid Data: " + data);
+      console.log("Recieved Message Invalid: " + data);
       return;
   }
-  
+  console.log("Recieved Message Valid "+data);
   
   switch  (msg.uri) {
       case "/auth":
@@ -40,12 +40,13 @@ ws.on('message', function incoming(data) {
       case "/auth/login":
         if (noError(msg)) {
             console.log("Login successfull.");
+            sendGetEndPoints();
         }
         break;
 
-      case "endpoints":
+      case "/endpoints":
         if (noError(msg)) {
-            
+            console.log("End Points Received");
         }
         
 
@@ -108,4 +109,6 @@ function sendGetEndPoints() {
         type: "get",
         umid: "1",
     }
+
+    ws.send(JSON.stringify(data));
 }
