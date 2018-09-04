@@ -19,6 +19,7 @@ ws.on('message', function incoming(data) {
   const msg = JSON.parse(data);
   if (!msg.hasOwnProperty("type") || !msg.hasOwnProperty("uri")) {
       console.log("Recieved Message Invalid: " + data);
+      ws.close();
       return;
   }
   console.log("Recieved Message Valid "+data);
