@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const WebSocket = require('ws');
 var crypto = require('crypto');
 var hash = crypto.createHash('sha256').update("password").digest("hex");
